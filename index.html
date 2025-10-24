@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art Exhibition - Classical Renaissance</title>
+    <title>Valery Yershov - Metamorphosis</title>
     <style>
         * {
             margin: 0;
@@ -251,6 +251,64 @@
             font-weight: 300;
         }
 
+        .social-link {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            z-index: 100;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .instagram-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .instagram-link svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
         @media (max-width: 768px) {
             .ambient-video {
                 width: 180px;
@@ -276,6 +334,18 @@
                 top: 20px;
                 right: 20px;
                 font-size: 0.8rem;
+            }
+
+            .social-link {
+                bottom: 20px;
+                left: 20px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .social-link svg {
+                width: 20px;
+                height: 20px;
             }
         }
     </style>
@@ -316,14 +386,24 @@
         <div class="event-content">
             <h2>Experience Metamorphosis</h2>
             <div class="event-details">
-                <p>December 22 through December 31</p>
-                <!-- <p><strong>Time:</strong> [Your Time Here]</p> -->
+                <p>December 22 - 31</p>
                 <p>West Park's Sanctuary Space</p>
                 <p>165 West 86th Street, entrance on Amsterdam Avenue</p>
             </div>
-            <a href="#" class="cta-button">RSVP</a>
+            <a href="https://www.instagram.com/valeryyershov" target="_blank" rel="noopener noreferrer" class="instagram-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                @valeryyershov
+            </a>
         </div>
     </section>
+
+    <a href="https://www.instagram.com/valeryyershov" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Follow on Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+    </a>
 
     <div class="fullscreen-overlay" id="fullscreenOverlay">
         <div class="fullscreen-close" id="closeFullscreen">×</div>
@@ -335,22 +415,6 @@
     const sections = document.querySelectorAll('section');
     const counter = document.getElementById('counter');
     const images = document.querySelectorAll('.image-container img');
-    
-    const updateCounter = () => {
-        const scrollPosition = window.scrollY + window.innerHeight / 2;
-        let currentSection = 1;
-        
-        sections.forEach((section, index) => {
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                currentSection = index + 1;
-            }
-        });
-        
-        counter.textContent = `${currentSection} / ${sections.length}`;
-    };
     
     // Intersection Observer for image animations
     const imageObserver = new IntersectionObserver((entries) => {
@@ -406,10 +470,7 @@
         }
     });
     
-    window.addEventListener('scroll', updateCounter);
-    updateCounter();
-    
-    // Fix for Safari mobile scroll-snap issue with anchor links
+    // Sequential scroll through all sections
     const detailsButton = document.querySelector('.details-button');
     
     detailsButton.addEventListener('click', (e) => {
@@ -418,13 +479,30 @@
         // Temporarily disable scroll-snap
         document.documentElement.style.scrollSnapType = 'none';
         
-        // Scroll to the event section
-        document.getElementById('event').scrollIntoView({ behavior: 'smooth' });
+        const allSections = Array.from(sections);
+        let currentIndex = 0;
         
-        // Re-enable scroll-snap after scrolling is complete
-        setTimeout(() => {
-            document.documentElement.style.scrollSnapType = 'y mandatory';
-        }, 1000);
+        const scrollToNextSection = () => {
+            if (currentIndex < allSections.length) {
+                allSections[currentIndex].scrollIntoView({ behavior: 'smooth' });
+
+                if (currentIndex === 3) {
+                    currentIndex = allSections.length - 1;
+                }
+                else {
+                    currentIndex++;
+                }
+
+                
+                // Wait 800ms (matching the CSS transition time) before moving to next section
+                setTimeout(scrollToNextSection, 500);
+            } else {
+                // Re-enable scroll-snap after all scrolling is complete
+                document.documentElement.style.scrollSnapType = 'y mandatory';
+            }
+        };
+        
+        scrollToNextSection();
     });
 </script>
 </body>
