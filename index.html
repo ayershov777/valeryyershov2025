@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Exhibition - Classical Renaissance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            flex-direction: column;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .ambient-video {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            width: 280px;
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .ambient-video:hover {
+            opacity: 1;
+        }
+
+        .ambient-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #999 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: #888;
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .details-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-bottom: 40px;
+        }
+
+        .details-button:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.9rem;
+            color: #666;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .image-section {
+            background: #000;
+            padding: 0;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .image-container img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.8s ease-out;
+            cursor: pointer;
+        }
+
+        .image-container img.visible {
+            transform: scale(1);
+        }
+
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-overlay img {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.8);
+        }
+
+        .fullscreen-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 1001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .event-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            flex-direction: column;
+            padding: 60px 40px;
+        }
+
+        .event-content {
+            max-width: 700px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        .event-details {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            line-height: 2;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+
+        .event-details strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background: #000;
+            color: #fff;
+            box-shadow: 0 0 0 2px #fff;
+            transform: translateY(-3px);
+        }
+
+        .image-counter {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            font-size: 0.9rem;
+            color: #666;
+            z-index: 100;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .ambient-video {
+                width: 180px;
+                height: 180px;
+                bottom: 80px;
+                right: 20px;
+            }
+
+            .image-container {
+                padding: 40px 20px;
+            }
+
+            .image-container img {
+                max-width: 95%;
+                max-height: 70vh;
+            }
+
+            .event-content {
+                padding: 20px;
+            }
+
+            .image-counter {
+                top: 20px;
+                right: 20px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>VALERY<br>YERSHOV</h1>
+        <p class="subtitle">The Metamorphosis Collection</p>
+        <a href="#event" class="details-button">See Details</a>
+        <div class="scroll-indicator">↓ Scroll to explore</div>
+    </section>
+
+    <section class="image-section">
+        <div class="image-container">
+            <img src="image1.jpg" alt="The Swing - Contemporary classical painting">
+        </div>
+    </section>
+
+    <section class="image-section">
+        <div class="image-container">
+            <img src="image2.jpg" alt="Reflection - Portrait with water reflection">
+        </div>
+    </section>
+
+    <section class="image-section">
+        <div class="image-container">
+            <img src="image3.jpg" alt="The Gallery - Figure viewing art collection">
+        </div>
+    </section>
+
+    <section class="image-section">
+        <div class="image-container">
+            <img src="image4.jpg" alt="Exhibition opening reception">
+        </div>
+    </section>
+
+    <section class="event-section" id="event">
+        <div class="event-content">
+            <h2>Experience Metamorphosis</h2>
+            <div class="event-details">
+                <p>December 22 through December 31</p>
+                <!-- <p><strong>Time:</strong> [Your Time Here]</p> -->
+                <p>West Park's Sanctuary Space</p>
+                <p>165 West 86th Street, entrance on Amsterdam Avenue</p>
+            </div>
+            <a href="#" class="cta-button">RSVP</a>
+        </div>
+    </section>
+
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <div class="fullscreen-close" id="closeFullscreen">×</div>
+        <img id="fullscreenImage" src="" alt="">
+    </div>
+
+    <script>
+        // Update counter on scroll
+        const sections = document.querySelectorAll('section');
+        const counter = document.getElementById('counter');
+        const images = document.querySelectorAll('.image-container img');
+        
+        const updateCounter = () => {
+            const scrollPosition = window.scrollY + window.innerHeight / 2;
+            let currentSection = 1;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    currentSection = index + 1;
+                }
+            });
+            
+            counter.textContent = `${currentSection} / ${sections.length}`;
+        };
+        
+        // Intersection Observer for image animations
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+        
+        images.forEach(img => {
+            imageObserver.observe(img);
+        });
+        
+        // Fullscreen image functionality
+        const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+        const closeFullscreen = document.getElementById('closeFullscreen');
+        
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                fullscreenImage.src = img.src;
+                fullscreenImage.alt = img.alt;
+                fullscreenOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        const closeFullscreenView = () => {
+            fullscreenOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        
+        closeFullscreen.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeFullscreenView();
+        });
+        
+        fullscreenOverlay.addEventListener('click', closeFullscreenView);
+        
+        fullscreenImage.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        // Close fullscreen with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+                closeFullscreenView();
+            }
+        });
+        
+        window.addEventListener('scroll', updateCounter);
+        updateCounter();
+    </script>
+</body>
+</html>
