@@ -330,84 +330,102 @@
         <img id="fullscreenImage" src="" alt="">
     </div>
 
-    <script>
-        // Update counter on scroll
-        const sections = document.querySelectorAll('section');
-        const counter = document.getElementById('counter');
-        const images = document.querySelectorAll('.image-container img');
+<script>
+    // Update counter on scroll
+    const sections = document.querySelectorAll('section');
+    const counter = document.getElementById('counter');
+    const images = document.querySelectorAll('.image-container img');
+    
+    const updateCounter = () => {
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+        let currentSection = 1;
         
-        const updateCounter = () => {
-            const scrollPosition = window.scrollY + window.innerHeight / 2;
-            let currentSection = 1;
+        sections.forEach((section, index) => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
             
-            sections.forEach((section, index) => {
-                const sectionTop = section.offsetTop;
-                const sectionBottom = sectionTop + section.offsetHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    currentSection = index + 1;
-                }
-            });
-            
-            counter.textContent = `${currentSection} / ${sections.length}`;
-        };
-        
-        // Intersection Observer for image animations
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    entry.target.classList.remove('visible');
-                }
-            });
-        }, {
-            threshold: 0.2
-        });
-        
-        images.forEach(img => {
-            imageObserver.observe(img);
-        });
-        
-        // Fullscreen image functionality
-        const fullscreenOverlay = document.getElementById('fullscreenOverlay');
-        const fullscreenImage = document.getElementById('fullscreenImage');
-        const closeFullscreen = document.getElementById('closeFullscreen');
-        
-        images.forEach(img => {
-            img.addEventListener('click', () => {
-                fullscreenImage.src = img.src;
-                fullscreenImage.alt = img.alt;
-                fullscreenOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        const closeFullscreenView = () => {
-            fullscreenOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-        
-        closeFullscreen.addEventListener('click', (e) => {
-            e.stopPropagation();
-            closeFullscreenView();
-        });
-        
-        fullscreenOverlay.addEventListener('click', closeFullscreenView);
-        
-        fullscreenImage.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-        
-        // Close fullscreen with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
-                closeFullscreenView();
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                currentSection = index + 1;
             }
         });
         
-        window.addEventListener('scroll', updateCounter);
-        updateCounter();
-    </script>
+        counter.textContent = `${currentSection} / ${sections.length}`;
+    };
+    
+    // Intersection Observer for image animations
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible');
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+    
+    images.forEach(img => {
+        imageObserver.observe(img);
+    });
+    
+    // Fullscreen image functionality
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const fullscreenImage = document.getElementById('fullscreenImage');
+    const closeFullscreen = document.getElementById('closeFullscreen');
+    
+    images.forEach(img => {
+        img.addEventListener('click', () => {
+            fullscreenImage.src = img.src;
+            fullscreenImage.alt = img.alt;
+            fullscreenOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    const closeFullscreenView = () => {
+        fullscreenOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
+    closeFullscreen.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeFullscreenView();
+    });
+    
+    fullscreenOverlay.addEventListener('click', closeFullscreenView);
+    
+    fullscreenImage.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    
+    // Close fullscreen with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+            closeFullscreenView();
+        }
+    });
+    
+    window.addEventListener('scroll', updateCounter);
+    updateCounter();
+    
+    // Fix for Safari mobile scroll-snap issue with anchor links
+    const detailsButton = document.querySelector('.details-button');
+    
+    detailsButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Temporarily disable scroll-snap
+        document.documentElement.style.scrollSnapType = 'none';
+        
+        // Scroll to the event section
+        document.getElementById('event').scrollIntoView({ behavior: 'smooth' });
+        
+        // Re-enable scroll-snap after scrolling is complete
+        setTimeout(() => {
+            document.documentElement.style.scrollSnapType = 'y mandatory';
+        }, 1000);
+    });
+</script>
 </body>
 </html>
